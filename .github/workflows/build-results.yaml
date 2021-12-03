@@ -1,0 +1,37 @@
+name: 'Build LaTex Document with Biber'
+on: 
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        name: Tectonic Cache
+        with:
+          path: ~/.cache/Tectonic
+          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+           ${{ runner.os }}-tectonic-
+      - uses: wtfjoke/setup-tectonic@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          biber-version: "latest"
+      - name: Run Tectonic + Biber
+        run: |
+          mkdir results
+          find . -iname '*.tex' -exec tectonic -X compile "{}" -Z shell-escape --outdir ./results \;
+      - name: Upload pdf
+        uses: actions/upload-artifact@v2
+        with:
+          name: pdf-results
+          path: results/*.pdf
+      - name: Push results to the repo
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: "*.pdf results/*.pdf" 
+          commit_options: "--no-verify --signoff"
+          commit_message: "chore: Update PDF documents"
+          skip_dirty_check: true
