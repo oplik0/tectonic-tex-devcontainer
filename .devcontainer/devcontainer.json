@@ -38,7 +38,8 @@
 			// Options
 			// OPTIONAL: If you want a custom out directory,
 			// uncomment the following line.
-			"--outdir out",
+			"--outdir",
+			"${containerWorkspaceFolder}/out",
 		],
 		"ltex.additionalRules.motherTongue": "pl-PL",
 		"ltex.language": "pl-PL",
@@ -49,7 +50,7 @@
 		"texlab.build.onSave": true,
 		"texlab.chktex.onEdit": true,
 		"texlab.server.autoDownload": true,
-		"texlab.auxDirectory": "out",
+		"texlab.auxDirectory": "${containerWorkspaceFolder}/out",
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
@@ -78,5 +79,6 @@
 		"sshd": "latest",
 		"node": "lts",
 		"python": "latest",
-	}
+	},
+	"postCreateCommand": "mkdir -p out"
 }
