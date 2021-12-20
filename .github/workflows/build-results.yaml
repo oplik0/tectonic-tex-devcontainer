@@ -37,4 +37,3 @@ jobs:
           file_pattern: "*.pdf results/*.pdf" 
           commit_options: "--no-verify --signoff"
           commit_message: "chore: Update PDF documents"
-          status_options: '--untracked-files=no'
