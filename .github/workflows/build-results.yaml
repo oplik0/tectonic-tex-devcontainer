@@ -21,8 +21,11 @@ jobs:
           biber-version: "latest"
       - name: Run Tectonic + Biber
         run: |
-          mkdir results
-          find . -iname '*.tex' -exec tectonic -X compile "{}" -Z shell-escape --outdir ./results \;
+          mkdir -p results
+          git diff --name-only --diff-filter AMR HEAD~1 | grep ".*\.tex" | while read line
+          do
+            tectonic -X compile "$line" -Z shell-escape --outdir ./results
+          done
       - name: Upload pdf
         uses: actions/upload-artifact@v2
         with:
