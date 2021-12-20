@@ -1,14 +1,9 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.203.0/containers/rust
 {
-	"name": "Rust",
+	"name": "Tectonic",
 	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			// Use the VARIANT arg to pick a Debian OS version: buster, bullseye
-			// Use bullseye when on local on arm64/Apple Silicon.
-			"VARIANT": "bullseye"
-		}
+		"dockerfile": "Dockerfile"
 	},
 	"runArgs": [
 		"--init",
@@ -75,10 +70,7 @@
 	"features": {
 		"git": "latest",
 		"git-lfs": "latest",
-		"github-cli": "latest",
-		"sshd": "latest",
-		"node": "lts",
-		"python": "latest",
+		"github-cli": "latest"
 	},
 	"postCreateCommand": "mkdir -p out"
 }
